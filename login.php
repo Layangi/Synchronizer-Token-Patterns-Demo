@@ -66,7 +66,7 @@ function login()
         setcookie('session_cookie', session_id(), time() + 300, '/');
         
         //generate CSRF Token
-        $_SESSION['csrf_Token'] = generate_token();
+        $_SESSION['CSRF_Token'] = generate_token();
         //$Token = generate_token();
         
         //redirect to updateData.php
