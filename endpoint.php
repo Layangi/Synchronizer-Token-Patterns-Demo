@@ -18,7 +18,7 @@ if (isset($_COOKIE['session_cookie'])) {
 
     session_start();
     //check if the token in the post method equals to the token in the session
-    if ($_POST['csrf_Token'] == $_COOKIE['csrf_Token'])  {
+    if ($_POST['csrf_Token'] == $_SESSION['CSRF_Token'])  {
 
         $name = $_POST['name'];
         $email = $_POST['email'];
