@@ -64,12 +64,11 @@ function login()
         session_regenerate_id();
 
         setcookie('session_cookie', session_id(), time() + 300, '/');
+        
         //generate CSRF Token
-       // $_SESSION['csrf_Token'] = generate_token();
-        $Token = generate_token();
-        //set CSRF cookie with secure flag set
-        setcookie('csrf_Token', $Token, time() + 300, '/','www.admin.com.com',true);
-
+        $_SESSION['csrf_Token'] = generate_token();
+        //$Token = generate_token();
+        
         //redirect to updateData.php
         header("Location:updateData.php");
         exit;
