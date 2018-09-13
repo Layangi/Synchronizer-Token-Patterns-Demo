@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <script src="/js/jquery-3.3.1.min.js"></script>
 
-    <title> Update Information </title>
+    <title> Synchronizer Token Pattern </title>
 
 </head>
 <body>
@@ -22,7 +22,7 @@
     <?php
     if(isset($_COOKIE['session_cookie'])) {
         echo "
-						<form action='endpoint.php' method='POST' enctype='multipart/form-data' onsubmit='updateForm(this);'>
+						<form action='endpoint.php' method='POST' enctype='multipart/form-data' >
                             <!-- CSRF Token -->
                             <input type='hidden' name='csrf_Token' id='csrf_Token' value=''>
                               
@@ -42,35 +42,24 @@
                        </form>" ;
            }
     ?>
-    <script >
+      <script >
 
         //To retrieve CSRF token from the cookie
-        function getCookie(cName)
-        {
-            var name = cName + "=";
-            var decodedCookie = decodeURIComponent(document.cookie);
-            var ca = decodedCookie.split(';');
-            for(var i = 0; i <ca.length; i++)
+        var request="true";
+        $.ajax({
+            url:"csrf.php",
+            method:"POST",
+            data:{request:request},
+            dataType:"JSON",
+            success:function(data)
             {
-                var c = ca[i];
-                while (c.charAt(0) == ' ')
-                {
-                    c = c.substring(1);
-                }
-                if (c.indexOf(name) == 0)
-                {
-                    return c.substring(name.length, c.length);
-                }
+                document.getElementById("csrf_Token").value=data.token;
             }
-            return "";
-        }
-        //To set hidden CSRF input value in the form
-        function updateForm(fElement)
-        {
-            document.getElementById("csrf_Token").value=getCookie("csrf_Token");
-        }
+
+        })
 
     </script>
+	
 </div>
 </body>
 </html>
